@@ -36,6 +36,7 @@ const App = () => {
         </p>
         {loading ? (
           <div className="flex items-center justify-center">
+            {/* simple loading spinner */}
             <div className="w-8 h-8 border-4 border-[#52ffaa] border-t-transparent rounded-full animate-spin"></div>
           </div>
         ) : (
