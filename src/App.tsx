@@ -30,7 +30,7 @@ const App = () => {
       <h1 className="text-3xl text-center text-[#52ffaa] mb-6">
         Advice Generator
       </h1>
-      <div className="relative bg-[#323a49] w-96 h-60 rounded-lg text-center flex flex-col items-center gap-4 px-6 py-3 text-white">
+      <div className="relative bg-[#323a49] w-full md:w-96 h-60 rounded-lg text-center flex flex-col items-center gap-4 px-6 py-3 text-white">
         <p className="text-[#52ffaa] uppercase font-bold text-sm spacing">
           Advice <span>#{adviceId}</span>
         </p>
