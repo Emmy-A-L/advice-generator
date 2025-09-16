@@ -1,15 +1,18 @@
-import { Route, Routes } from "react-router-dom"
-import HomePage from "./pages/HomePage"
-import PrivacyPage from "./pages/PrivacyPage"
-
+import { Route, Routes } from "react-router-dom";
+import HomePage from "./pages/HomePage";
+import PrivacyPage from "./pages/PrivacyPage";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/privacy" element={<PrivacyPage />} />
-    </Routes>
-  )
-}
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
+      </Routes>
+    </>
+  );
+};
 
-export default App
+export default App;
