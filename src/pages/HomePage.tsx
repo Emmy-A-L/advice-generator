@@ -27,7 +27,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="bg-[#222732] h-screen w-screen flex flex-col items-center justify-center">
+    <div className="bg-[#222732] h-screen w-screen flex flex-col items-center justify-center px-2">
       <h1 className="text-3xl text-center text-[#52ffaa] mb-6">
         Advice Generator
       </h1>
