@@ -27,41 +27,66 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div className="bg-[#222732] h-screen w-screen flex flex-col items-center justify-center px-2">
-      <h1 className="text-3xl text-center text-[#52ffaa] mb-6">
+    <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center px-4 py-8 relative overflow-hidden font-sans">
+      {/* Background Ambient Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-[radial-gradient(circle_at_center,rgba(82,255,170,0.08),transparent_70%)] pointer-events-none" />
+
+      <h1 className="text-slate-500 uppercase tracking-[0.4em] text-xs font-bold mb-10 z-10">
         Advice Generator
       </h1>
-      <div className="relative bg-[#323a49] w-full md:w-96 h-60 rounded-lg text-center flex flex-col items-center gap-4 px-6 py-3 text-white">
-        <p className="text-[#52ffaa] uppercase font-bold text-sm spacing">
-          Advice <span>#{adviceId}</span>
-        </p>
-        {loading ? (
-          <div className="flex items-center justify-center">
-            {/* simple loading spinner */}
-            <div className="w-8 h-8 border-4 border-[#52ffaa] border-t-transparent rounded-full animate-spin"></div>
-          </div>
-        ) : (
-          <blockquote className="text-xl font-semibold text-gray-200">
-            "{advice}"
-          </blockquote>
-        )}
-        <div className="relative w-full flex items-center justify-center">
-          <span className="h-0.5 w-full bg-gray-600"></span>
-          <TiMediaPause className="text-white text-3xl absolute bg-[#323a49]" />
+
+      {/* Main Card */}
+      <main className="relative z-10 w-full max-w-[540px] bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl shadow-2xl p-8 pb-16 flex flex-col items-center text-center transition-all duration-300">
+        <h2 className="text-[#52ffaa] text-xs font-extrabold tracking-[0.25em] uppercase mb-8 drop-shadow-[0_0_8px_rgba(82,255,170,0.4)]">
+          Advice #{adviceId || '...'}
+        </h2>
+
+        <div className="min-h-[120px] flex items-center justify-center mb-8">
+          {loading ? (
+            <div className="w-8 h-8 border-4 border-[#52ffaa] border-t-transparent rounded-full animate-spin shadow-[0_0_15px_rgba(82,255,170,0.3)]"></div>
+          ) : (
+            <blockquote className="text-[24px] md:text-[28px] font-bold text-gray-100 leading-snug tracking-tight">
+              "{advice}"
+            </blockquote>
+          )}
         </div>
 
-        <GiPerspectiveDiceSixFacesFour
-          className={`absolute text-4xl text-[#323a49] -bottom-4 rounded-full bg-[#52ffaa] cursor-pointer hover:scale-110 transition-transform ${
-            loading ? "animate-pulse" : ""
-          }`}
-          onClick={() => !loading && fetchAdvice()}
-        />
-      </div>
+        {/* Divider / Decoration */}
+        <div className="w-full flex items-center justify-center gap-4 mb-4 opacity-80">
+          <div className="h-[1px] bg-gray-600 flex-1 opacity-40"></div>
+          <TiMediaPause className="text-gray-200 text-xl" />
+          <div className="h-[1px] bg-gray-600 flex-1 opacity-40"></div>
+        </div>
 
-      <footer className="fixed bottom-0 w-full italic py-4 text-center text-sm text-gray-200 bg-transparent mt-8">
+        {/* Floating Action Button */}
+        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2">
+          <button
+            onClick={() => !loading && fetchAdvice()}
+            disabled={loading}
+            className={`
+              bg-[#52ffaa] p-4 rounded-full
+              text-slate-900 text-3xl
+              shadow-[0_0_20px_rgba(82,255,170,0.5)]
+              hover:shadow-[0_0_35px_rgba(82,255,170,0.8)]
+              active:scale-95
+              transition-all duration-300 ease-out
+              disabled:opacity-70 disabled:cursor-not-allowed
+              group
+            `}
+            aria-label="Get new advice"
+          >
+            <GiPerspectiveDiceSixFacesFour
+              className={`transition-transform duration-500 ease-in-out ${loading ? "animate-spin" : "group-hover:rotate-180"}`}
+            />
+          </button>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="mt-16 text-center text-slate-500 text-sm font-medium z-10">
         <p>
-          © 2025 AdviceGeneratorNG. {" "}
-          <Link to="/privacy" className="text-blue-600 hover:underline">
+          © 2025 AdviceGeneratorNG • {" "}
+          <Link to="/privacy" className="text-slate-400 hover:text-[#52ffaa] transition-colors underline decoration-slate-600 hover:decoration-[#52ffaa]">
             Privacy Policy
           </Link>
         </p>
