@@ -1,12 +1,33 @@
 import { useEffect, useState } from "react";
 import { GiPerspectiveDiceSixFacesFour } from "react-icons/gi";
 import { TiMediaPause } from "react-icons/ti";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   const [advice, setAdvice] = useState("");
   const [adviceId, setAdviceId] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [favourites, setFavourites] = useState<{ id: number; advice: string }[]>([]);
+
+  // Load favourites from localStorage on mount
+  useEffect(() => {
+    const stored = localStorage.getItem("favourites");
+    if (stored) setFavourites(JSON.parse(stored));
+  }, []);
+
+  const isFavourited = favourites.some((fav) => fav.id === adviceId);
+
+  const toggleFavourite = () => {
+    let updated;
+    if (isFavourited) {
+      updated = favourites.filter((fav) => fav.id !== adviceId);
+    } else {
+      updated = [...favourites, { id: adviceId, advice }];
+    }
+    setFavourites(updated);
+    localStorage.setItem("favourites", JSON.stringify(updated));
+  };
 
   const fetchAdvice = async () => {
     try {
@@ -37,6 +58,20 @@ const HomePage = () => {
 
       {/* Main Card */}
       <main className="relative z-10 w-full max-w-[540px] bg-slate-800/40 backdrop-blur-xl border border-white/5 rounded-2xl shadow-2xl p-8 pb-16 flex flex-col items-center text-center transition-all duration-300">
+        {/* Favourite heart button */}
+        <button
+          onClick={toggleFavourite}
+          disabled={loading || !adviceId}
+          className="absolute top-5 right-5 p-2 rounded-lg transition-all duration-300 hover:bg-white/5 disabled:opacity-30 disabled:cursor-not-allowed group/heart"
+          aria-label={isFavourited ? "Remove from favourites" : "Add to favourites"}
+        >
+          {isFavourited ? (
+            <FaHeart className="text-xl text-[#52ffaa] drop-shadow-[0_0_8px_rgba(82,255,170,0.5)] transition-transform duration-300 group-hover/heart:scale-110" />
+          ) : (
+            <FaRegHeart className="text-xl text-slate-500 hover:text-[#52ffaa] transition-all duration-300 group-hover/heart:scale-110" />
+          )}
+        </button>
+
         <h2 className="text-[#52ffaa] text-xs font-extrabold tracking-[0.25em] uppercase mb-8 drop-shadow-[0_0_8px_rgba(82,255,170,0.4)]">
           Advice #{adviceId || '...'}
         </h2>
