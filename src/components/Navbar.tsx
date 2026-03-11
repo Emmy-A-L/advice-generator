@@ -4,7 +4,7 @@ import { FaHeart } from "react-icons/fa";
 const Navbar = () => {
   return (
     <div className="fixed top-0 left-0 w-full h-18 bg-transparent flex px-8 py-8 md:py-8 items-center z-50">
-      <Link to="/" className="mx-auto">
+      <Link to="/" className="">
         <img
           src="/advice-generator-high-resolution-logo-transparent.png"
           alt="Advice Generator Logo"

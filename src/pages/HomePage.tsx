@@ -3,6 +3,7 @@ import { GiPerspectiveDiceSixFacesFour } from "react-icons/gi";
 import { TiMediaPause } from "react-icons/ti";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import axios from "axios";
 
 const HomePage = () => {
   const [advice, setAdvice] = useState("");
@@ -32,10 +33,13 @@ const HomePage = () => {
   const fetchAdvice = async () => {
     try {
       setLoading(true);
-      const response = await fetch("https://api.adviceslip.com/advice");
-      const data = await response.json();
+
+      const response = await axios.get("https://api.adviceslip.com/advice");
+      const data = response.data;
       setAdvice(data.slip.advice);
       setAdviceId(data.slip.id);
+      return;
+      
     } catch (error) {
       alert(`Error fetching advice: ${error}`);
     } finally {
