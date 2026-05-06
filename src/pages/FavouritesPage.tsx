@@ -25,7 +25,7 @@ const FavouritesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col items-center px-4 py-8 pt-28 relative overflow-hidden font-sans">
+    <div className="min-h-screen bg-slate-950 flex flex-col items-center px-4 py-8 pt-28 relative overflow-y-auto font-sans no-scrollbar">
       {/* Background Ambient Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-1/2 bg-[radial-gradient(circle_at_center,rgba(82,255,170,0.08),transparent_70%)] pointer-events-none" />
 
